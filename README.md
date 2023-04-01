@@ -7,49 +7,22 @@
 5. Tie detection
 6. CLI based 
 7. Simple Logic
-
 ## Functions
-1. init_board(): This function initializes the game board by setting all cells to 0, which represents an empty cell.
-2. display_board(): This function displays the current state of the game board on the console.
-3. is_valid_move(col): This function checks if the move entered by the player is valid. It returns 1 if the column is not full and 0 otherwise.
-4. drop_checker(col, checker): This function drops a checker of the given type (player1 or player2) into the given column. It returns the row index where the checker was dropped.
-5. check_winner(row, col, checker): This function checks if the given player has won the game by placing three checkers in a row (horizontally, vertically, or diagonally) starting from the given row and column. It returns 1 if there is a winner and 0 otherwise.
-6. is_tie(): This function checks if the game has ended in a tie by scanning the entire board for any empty cells. It returns 1 if there is a tie and 0 otherwise.
-7. main(): This is the main function that controls the flow of the game. It initializes the board, displays it, and starts a loop where players take turns entering their moves. It checks for a winner or ties after each move and displays the appropriate message before ending the game.
-
-## Working of Functions
-1. init_board(): This function uses nested loops to initialize the game board to all zeros. The game board is represented by a two-dimensional array where each element is an integer that can have a value of 0, 1, or 2, representing an empty cell, a cell occupied by player 1, or a cell occupied by player 2.
-
-2. display_board(): This function uses nested loops to print the game board to the console. It prints a horizontal line of underscores at the top to separate the column numbers from the board, then prints the column numbers in sequence. It then iterates through each row and column of the board and prints the corresponding cell value as a character (' ', 'O', or 'X') with a vertical bar separating each column.
-
-3. is_valid_move(col): This function checks if a move is valid by checking if the specified column is full (i.e. if the highest row in the column has already been filled with a checker). It returns 1 if the column is not full and 0 otherwise.
-
-4. drop_checker(col, checker): This function drops a checker into the specified column, starting from the bottom row and moving up until it finds an empty cell. It updates the corresponding cell in the game board to the player's checker value (1 or 2) and returns the row index where the checker was dropped.
-
-5. check_winner(row, col, checker): This function checks if the specified player has won the game by placing three checkers in a row (horizontally, vertically, or diagonally) starting from the given row and column. It uses nested loops to check for three consecutive checkers in each of the eight possible directions (horizontal, vertical, diagonal up, diagonal down, and their opposites). If it finds three consecutive checkers of the same player, it returns 1 to indicate a winner; otherwise, it returns 0.
-
-6. is_tie(): This function checks if the game has ended in a tie by scanning the entire board for empty cells. It uses nested loops to check each cell of the game board. If it finds any empty cell, it returns 0 to indicate that the game is not over; otherwise, it returns 1 to indicate a tie.
-
-7. main(): This is the main function that controls the flow of the game. It calls init_board() to initialize the game board, display_board() to show the initial state of the board, and then starts a loop that alternates between the two players. For each turn, it prompts the player to enter a column number, checks if the move is valid using is_valid_move(), drops a checker using drop_checker(), checks if the player has won using check_winner(), checks if the game has ended in a tie using is_tie(), and then updates the current player. If a winner or tie is detected, it displays the appropriate message and exits the loop.
-
+1. displayBoard(): This function displays the game board to the console. It loops through each row and column of the board and prints the corresponding character to the console.
+2. is_valid_move(col): This function checks if the move entered by the player is valid. It returns 1 if the column is not full and 0 otherwise.
+3. makeMove(): This function takes the player's input (a column number) and places their piece in the first available slot in that column. It starts at the bottom of the column and checks each row until it finds an empty space. Once it finds an empty space, it places the player's piece in that slot.
+4. checkWin(): This function checks if a player has won the game. It loops through each row, column, and diagonal of the board and counts how many pieces of the player's color are in a row. If there are three pieces in a row, the function returns 1 (indicating a win). If there are no wins found, the function returns 0.
+5. isTie(): This function checks if the game has ended in a tie by scanning the entire board for any empty cells. It returns 1 if there is a tie and 0 otherwise.
+6. main(): This is the main function of the program. It initializes the game board, loops through turns, displays the board to the console, gets player input, makes a move on the board, checks for a win, and switches the active player. The loop continues until a player wins, at which point the game ends and the function returns 0.
 ## Possible questions
-1. How does the game board work?
-2. How is a player's move validated?
-3. How is a checker dropped onto the game board?
-4. How is a winner determined?
-5. How is a tie detected?
-6. How is the game loop controlled?
-7. Can the game board be resized? If so, how?
-8. Can the game be played by more than two players? If so, how would the code need to be modified?
-9. How would you modify the code to allow a player to remove a checker from the game board?
-10. How would you modify the code to add a feature that allows players to choose the colour of their checkers?
+1. How does the makeMove() function handle invalid input from the player (e.g. input that is not a valid column number or a column that is already full)?
+2. What happens if the game ends in a tie (i.e. if the board is completely filled and neither player has won)?
+3. How would you modify the checkWin() function to allow for larger game boards (e.g. 8x8 or 10x10)?
+4. How would you modify the displayBoard() function to use ASCII art instead of simple characters to represent the game pieces?
+5. How would you modify the main() function to allow for the players to choose their own game pieces (e.g. X or O, or even different symbols)?
 ## Answers
-1. The game board is represented by a 2D array of integers, where each integer represents an empty cell (0), a cell occupied by player 1 (1), or a cell occupied by player 2 (2).
-2. A player's move is validated by checking if the specified column is not full (i.e. if the highest row in the column has not already been filled with a checker).
-3. A checker is dropped onto the game board by iterating through the rows of the specified column from bottom to top until an empty cell is found. The corresponding cell in the game board is then updated with the player's checker value (1 or 2).
-4. A winner is determined by checking each of the eight possible directions (horizontal, vertical, diagonal up, diagonal down, and their opposites) for three consecutive checkers of the same player.
-5. A tie is detected by scanning the entire game board for empty cells. If no empty cells are found, the game is declared a tie.
-6. The game loop is controlled using a while loop that alternates between the two players until a winner or tie is detected.
-7. The game board cannot be resized in this implementation, as it is a fixed size of 7 by 7.
-8. The code would need to be modified to allow for more than two players. One way to do this would be to modify the game board to accommodate more players and update the checker values accordingly.
-9. To allow a player to remove a checker from the game board, you would need to modify the drop_checker() function to remove the checker from the game board instead of adding it. You would also need to add input validation to ensure that the player is only removing their checkers.
+1. The current implementation of makeMove() assumes that the player input is a valid column number (between 0 and 6), and does not handle invalid input. To handle invalid input, have add an other function that checks whether or not the column is full or not.
+2. The isTie() function returns true and 'It is a Tie' is prompted.
+3. Just change the value of the constant BOARD_SIZE to 8 or 10 (Keeping in mind that the it is still a connect - 3 game) 
+4. To modify the displayBoard() function to use ASCII art, we could replace the simple characters with more complex characters that resemble game pieces. For example, we could use the characters "X" and "O" for the players' pieces, or we could use custom ASCII characters that resemble game pieces (e.g. squares or circles).
+5. To modify the main() function to allow for custom game pieces, we could prompt each player to choose their own game piece at the beginning of the game. We could then store these game pieces as variables and use them to display the board and check for wins. For example, we could prompt the players to enter a single character (e.g. "X" or "O") to represent their game piece.
